@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Gallery 📸</title>
+
+<style>
+body{
+  font-family:Poppins,sans-serif;
+  background:linear-gradient(#92d9ff,#e2f9ff);
+  text-align:center;
+  overflow-x: hidden;
+}
+
+nav{
+  background:#5ab4ff;
+  padding:15px;
+}
+
+nav a{
+  color:white;
+  margin:0 12px;
+  text-decoration:none;
+  font-size:18px;
+  font-weight:600;
+}
+
+/* Gallery styling */
+.gallery{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin-top:20px;
+}
+
+.gallery img{
+  width:170px;
+  height:230px;
+  object-fit:cover;
+  margin:10px;
+  border-radius:15px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Floating emoji/heart */
+.floating-emoji {
+  position: fixed;
+  bottom: -20px;
+  pointer-events: none;
+  user-select: none;
+  z-index: 9999;
+  animation: floatUp linear forwards;
+  font-size: 24px;
+}
+
+/* Float animation */
+@keyframes floatUp {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Background Music -->
+<audio id="bgMusic" loop>
+  <source src="music.mpeg" type="audio/mpeg">
+</audio>
+
+<nav>
+  <a href="welcome.html">Welcome</a>
+  <a href="journey.html">Our Journey</a>
+  <a href="cutenotes.html">Cute Notes</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="surprise.html">Surprise</a>
+  <a href="loveletter.html">Love Letter</a>
+</nav>
+
+<h1>Our Memories 📸</h1>
+
+<div class="gallery">
+  <img src="photo1.jpeg">
+  <img src="photo2.jpeg">
+  <img src="photo3.jpeg">
+  <img src="photo4.jpeg">
+  <img src="photo5.jpeg">
+  <img src="photo6.jpeg">
+  <img src="photo7.jpeg">
+  <img src="photo8.jpeg">
+  <img src="photo9.jpeg">
+  <img src="photo10.jpeg">
+  <img src="photo11.jpeg">
+  <img src="photo12.jpeg">
+  <img src="photo13.jpeg">
+  <img src="photo14.jpeg">
+  <img src="photo15.jpeg">
+  <img src="photo16.jpeg">
+  <img src="photo17.jpeg">
+  <img src="photo18.jpeg">
+  <img src="photo19.jpeg">
+  <img src="photo20.jpeg">
+</div>
+
+<script>
+/* 🎵 Auto-play music & sync across multiple tabs */
+const audio = document.getElementById('bgMusic');
+const bc = new BroadcastChannel('music_channel');
+
+// Try autoplay
+audio.play().catch(err => console.log('Autoplay blocked', err));
+
+// When this tab starts music, notify others
+audio.addEventListener('play', () => bc.postMessage('music_play'));
+
+// Listen for messages from other tabs
+bc.onmessage = (event) => {
+    if (event.data === 'music_play') {
+        audio.play().catch(err => {});
+    }
+};
+
+/* Page-specific emoji & color logic */
+const pageSettings = {
+  "gallery.html": { colors: ['#FFD700','#FFA500','#FF8C00'], emojis: ['📸','🐱'] }
+};
+
+// Get current page file name
+const currentPage = window.location.pathname.split("/").pop();
+const settings = pageSettings[currentPage] || { colors: ['#FFD700','#FFA500','#FF8C00'], emojis: ['📸','🐱'] };
+
+/* Floating emoji generation */
+function createEmoji() {
+  const emoji = document.createElement('div');
+  emoji.classList.add('floating-emoji');
+  
+  // Random color & emoji
+  emoji.style.color = settings.colors[Math.floor(Math.random() * settings.colors.length)];
+  emoji.textContent = settings.emojis[Math.floor(Math.random() * settings.emojis.length)];
+  
+  // Random position, size & speed
+  emoji.style.left = Math.random() * 95 + 'vw';
+  emoji.style.fontSize = (20 + Math.random() * 30) + 'px';
+  emoji.style.animationDuration = (4 + Math.random() * 6) + 's';
+  
+  // Optional rotation variation
+  emoji.style.transform = `rotate(${Math.random()*360}deg)`;
+  
+  document.body.appendChild(emoji);
+  setTimeout(() => emoji.remove(), 10000);
+}
+
+// Create emoji every 400ms
+setInterval(createEmoji, 400);
+</script>
+
+</body>
+</html>
+
+

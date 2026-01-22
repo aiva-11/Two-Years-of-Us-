@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Our 2 Year Anniversary 💙</title>
+
+<style>
+body {
+  background: linear-gradient(to bottom right, #7ec8ff, #b3e5fc);
+  text-align: center;
+  font-family: Arial, sans-serif;
+  padding: 40px;
+  overflow-x: hidden;
+}
+
+/* Headings */
+h1 {
+  color: #003366;
+  animation: fadeIn 2s ease;
+}
+
+p {
+  animation: fadeIn 3s ease;
+}
+
+/* Links as cards */
+a {
+  display: block;
+  margin: 15px auto;
+  padding: 12px;
+  background: white;
+  width: 220px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #003366;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+a:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* Play button */
+button {
+  margin-top: 25px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background: #003366;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+/* Floating emoji/heart */
+.floating-emoji {
+  position: fixed;
+  bottom: -20px;
+  pointer-events: none;
+  user-select: none;
+  z-index: 9999;
+  animation: floatUp linear forwards;
+  font-size: 24px;
+}
+
+/* Default float animation */
+@keyframes floatUp {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+}
+
+/* Fade animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Background Music -->
+<audio id="bgMusic" loop>
+  <source src="music.mpeg" type="audio/mpeg">
+</audio>
+
+<h1>💙 Welcome Lj 💙</h1>
+<p>Poona created this anniversary website just for us 💕</p>
+
+<!-- 🎵 Music Button -->
+<button onclick="document.getElementById('bgMusic').play()">
+  Play Music 🎶
+</button>
+
+<!-- Links -->
+<a href="welcome.html">Welcome Page</a>
+<a href="journey.html">Our 2 Year Journey</a>
+<a href="loveletter.html">Love Letter</a>
+<a href="notes.html">Cute Notes</a>
+<a href="photos.html">Couple Photos</a>
+<a href="special.html">Our Secret Memories 💖</a>
+<a href="surprise.html">Surprise Message 💌</a>
+
+<script>
+/* 🎵 Auto-play music & sync across multiple tabs */
+const audio = document.getElementById('bgMusic');
+const bc = new BroadcastChannel('music_channel');
+
+// Try autoplay
+audio.play().catch(err => console.log('Autoplay blocked', err));
+
+// When this tab starts music, notify others
+audio.addEventListener('play', () => bc.postMessage('music_play'));
+
+// Listen for messages from other tabs
+bc.onmessage = (event) => {
+    if (event.data === 'music_play') {
+        audio.play().catch(err => {});
+    }
+};
+
+/* 🐻😽 Page-specific emoji & color logic */
+const pageSettings = {
+  "index.html": { colors: ['#FF6B6B','#FFD93D','#FF8C42'], emojis: ['🐻','😽'] },
+  "welcome.html": { colors: ['#FF69B4','#FFB6C1','#FFC0CB'], emojis: ['💖','😽'] },
+  "journey.html": { colors: ['#6A5ACD','#9370DB','#BA55D3'], emojis: ['🐱','🐻'] },
+  "loveletter.html": { colors: ['#FF1493','#FF69B4','#FFB6C1'], emojis: ['💌','😽'] },
+  "notes.html": { colors: ['#00CED1','#20B2AA','#48D1CC'], emojis: ['📜','🐻'] },
+  "photos.html": { colors: ['#FFD700','#FFA500','#FF8C00'], emojis: ['📸','🐱'] },
+  "special.html": { colors: ['#FF69B4','#FFB6C1','#DB7093'], emojis: ['💖','🐻'] },
+  "surprise.html": { colors: ['#ADFF2F','#7CFC00','#32CD32'], emojis: ['🎁','😽'] }
+};
+
+// Get current page file name
+const currentPage = window.location.pathname.split("/").pop();
+const settings = pageSettings[currentPage] || { colors: ['#FF6B6B','#FFD93D','#FF8C42'], emojis: ['🐻','😽'] };
+
+/* Floating emoji generation */
+function createEmoji() {
+  const emoji = document.createElement('div');
+  emoji.classList.add('floating-emoji');
+  
+  // Random color & emoji
+  emoji.style.color = settings.colors[Math.floor(Math.random() * settings.colors.length)];
+  emoji.textContent = settings.emojis[Math.floor(Math.random() * settings.emojis.length)];
+  
+  // Random position, size & speed
+  emoji.style.left = Math.random() * 95 + 'vw';
+  emoji.style.fontSize = (20 + Math.random() * 30) + 'px';
+  emoji.style.animationDuration = (4 + Math.random() * 6) + 's';
+  
+  // Optional rotation animation variation
+  emoji.style.transform = `rotate(${Math.random()*360}deg)`;
+  
+  document.body.appendChild(emoji);
+  setTimeout(() => emoji.remove(), 10000);
+}
+
+// Create emoji every 400ms
+setInterval(createEmoji, 400);
+</script>
+
+</body>
+</html>
+
+
+

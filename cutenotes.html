@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cute Notes 💗</title>
+
+<style>
+body{
+  font-family:Poppins,sans-serif;
+  background:linear-gradient(#a5e8f7,#e3fcff);
+  text-align:center;
+  padding:20px;
+  overflow-x: hidden;
+}
+
+nav{
+  background:#5ab4ff;
+  padding:15px;
+}
+
+nav a{
+  color:white;
+  margin:0 12px;
+  text-decoration:none;
+  font-size:18px;
+  font-weight:600;
+}
+
+/* Note styling */
+.note{
+  background:white;
+  padding:20px;
+  margin:20px auto;
+  width:80%;
+  border-radius:15px;
+  border-left:6px solid #ff7fb2;
+  box-shadow:0 3px 12px rgba(0,0,0,0.15);
+}
+
+img{
+  width:230px;
+  border-radius:15px;
+  margin:10px;
+}
+
+/* Floating emoji/heart */
+.floating-emoji {
+  position: fixed;
+  bottom: -20px;
+  pointer-events: none;
+  user-select: none;
+  z-index: 9999;
+  animation: floatUp linear forwards;
+  font-size: 24px;
+}
+
+/* Float animation */
+@keyframes floatUp {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Background Music -->
+<audio id="bgMusic" loop>
+  <source src="music.mpeg" type="audio/mpeg">
+</audio>
+
+<nav>
+  <a href="welcome.html">Welcome</a>
+  <a href="journey.html">Our Journey</a>
+  <a href="cutenotes.html">Cute Notes</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="surprise.html">Surprise</a>
+  <a href="loveletter.html">Love Letter</a>
+</nav>
+
+<h1>Cute Notes 💗</h1>
+
+<div class="note">
+  <p>You make my days brighter and my heart softer, Lj 💙</p>
+  <img src="photo4.jpeg">
+</div>
+
+<div class="note">
+  <p>I love the way we laugh, travel, tease and love each other 💗</p>
+  <img src="photo5.jpeg">
+</div>
+
+<script>
+/* 🎵 Auto-play music & sync across multiple tabs */
+const audio = document.getElementById('bgMusic');
+const bc = new BroadcastChannel('music_channel');
+
+// Try autoplay
+audio.play().catch(err => console.log('Autoplay blocked', err));
+
+// When this tab starts music, notify others
+audio.addEventListener('play', () => bc.postMessage('music_play'));
+
+// Listen for messages from other tabs
+bc.onmessage = (event) => {
+    if (event.data === 'music_play') {
+        audio.play().catch(err => {});
+    }
+};
+
+/* Page-specific emoji & color logic */
+const pageSettings = {
+  "cutenotes.html": { colors: ['#00CED1','#20B2AA','#48D1CC'], emojis: ['📜','🐻'] }
+};
+
+// Get current page file name
+const currentPage = window.location.pathname.split("/").pop();
+const settings = pageSettings[currentPage] || { colors: ['#00CED1','#20B2AA','#48D1CC'], emojis: ['📜','🐻'] };
+
+/* Floating emoji generation */
+function createEmoji() {
+  const emoji = document.createElement('div');
+  emoji.classList.add('floating-emoji');
+  
+  // Random color & emoji
+  emoji.style.color = settings.colors[Math.floor(Math.random() * settings.colors.length)];
+  emoji.textContent = settings.emojis[Math.floor(Math.random() * settings.emojis.length)];
+  
+  // Random position, size & speed
+  emoji.style.left = Math.random() * 95 + 'vw';
+  emoji.style.fontSize = (20 + Math.random() * 30) + 'px';
+  emoji.style.animationDuration = (4 + Math.random() * 6) + 's';
+  
+  // Optional rotation variation
+  emoji.style.transform = `rotate(${Math.random()*360}deg)`;
+  
+  document.body.appendChild(emoji);
+  setTimeout(() => emoji.remove(), 10000);
+}
+
+// Create emoji every 400ms
+setInterval(createEmoji, 400);
+</script>
+
+</body>
+</html>

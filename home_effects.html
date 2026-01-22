@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Home Effects 💗</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- 🎶 Background Music -->
+<audio id="bgMusic" loop>
+  <source src="music.mpeg.wav" type="audio/mpeg">
+</audio>
+
+<nav>
+  <a href="home_effects.html">Home Effects</a>
+  <a href="gallery_effects.html">Gallery Effects</a>
+</nav>
+
+<h1>The Beautiful Chapter of Us 🪬💗</h1>
+<h2>Poona 💙 Lj</h2>
+
+<img src="photo1.jpeg" width="300">
+
+<p style="font-size:18px;margin:25px;">
+Two years, one beautiful love story 💗
+</p>
+
+<button id="playBtn">Play Music 🎶</button>
+
+<script>
+/* 🎶 Music */
+document.getElementById("playBtn").addEventListener("click", function () {
+  document.getElementById("bgMusic").play();
+});
+
+/* 💗 Floating hearts */
+setInterval(function () {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerText = "💗";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 7000);
+}, 700);
+</script>
+
+</body>
+</html>
+
+

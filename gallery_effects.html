@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Gallery Effects 📸</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav>
+  <a href="home_effects.html">Home Effects</a>
+  <a href="gallery_effects.html">Gallery Effects</a>
+</nav>
+
+<h1>Our Memories 📸</h1>
+
+<div class="gallery">
+  <img src="photo1.jpeg">
+  <img src="photo2.jpeg">
+  <img src="photo3.jpeg">
+  <img src="photo4.jpeg">
+  <img src="photo5.jpeg">
+  <img src="photo6.jpeg">
+  <img src="photo7.jpeg">
+  <img src="photo8.jpeg">
+  <img src="photo9.jpeg">
+  <img src="photo10.jpeg">
+  <img src="photo11.jpeg">
+  <img src="photo12.jpeg">
+  <img src="photo13.jpeg">
+  <img src="photo14.jpeg">
+  <img src="photo15.jpeg">
+  <img src="photo16.jpeg">
+  <img src="photo17.jpeg">
+  <img src="photo18.jpeg">
+  <img src="photo19.jpeg">
+  <img src="photo20.jpeg">
+</div>
+
+<!-- Lightbox -->
+<div id="lightbox">
+  <img id="lightbox-img">
+</div>
+
+<script>
+document.querySelectorAll(".gallery img").forEach(img=>{
+  img.onclick=()=>{
+    document.getElementById("lightbox").style.display="flex";
+    document.getElementById("lightbox-img").src=img.src;
+  }
+});
+document.getElementById("lightbox").onclick=()=>{
+  document.getElementById("lightbox").style.display="none";
+};
+</script>
+
+</body>
+</html>
